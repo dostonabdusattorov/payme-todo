@@ -12,6 +12,7 @@
             matInput
             placeholder="Enter email address"
             required
+            autocomplete
           />
           <mat-error *ngIf="!loginForm.controls['email'].valid">
             Email is required
@@ -27,6 +28,7 @@
             matInput
             [type]="hide ? 'password' : 'text'"
             required
+            autocomplete=""
           />
           <button
             mat-icon-button
@@ -44,7 +46,20 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <button mat-flat-button color="primary">Login</button>
+
+      <div class="button-spinner">
+        <mat-spinner
+          *ngIf="authStatus === httpStatus.LOADING"
+          diameter="25"
+        ></mat-spinner>
+        <button
+          *ngIf="authStatus !== httpStatus.LOADING"
+          mat-flat-button
+          color="primary"
+        >
+          Login
+        </button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>

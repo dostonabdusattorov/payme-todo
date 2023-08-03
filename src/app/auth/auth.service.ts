@@ -11,7 +11,7 @@ export class AuthService {
 
   signIn(email: string, password: string): Observable<any> {
     return this.http
-      .post<any>(`${baseUrl}/auth/signin`, {
+      .post<any>(`${baseUrl}/auth/token/login/`, {
         email,
         password,
         headers: new HttpHeaders().set('Content-Type', 'application/json'),

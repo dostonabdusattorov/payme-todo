@@ -1,17 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { signIn } from '../state/auth/auth.actions';
+import { authStatusSelector } from '../state/auth/auth.selectors';
+import { AppState } from '../state/app.state';
+import { HttpStatus } from 'src/constants';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit, OnDestroy {
   hide: boolean = true;
+  httpStatus = HttpStatus;
+  authStatus!: HttpStatus;
 
-  constructor(private store: Store, private fb: FormBuilder) {}
+  private authStatusSubscription!: Subscription;
+  private authStatus$ = this.store.select(authStatusSelector);
+
+  constructor(private store: Store<AppState>, private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.authStatusSubscription = this.authStatus$.subscribe((status) => {
+      this.authStatus = status;
+    });
+  }
 
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -23,6 +38,15 @@ export class AuthComponent {
       return;
     }
 
-    this.store.dispatch(signIn());
+    this.store.dispatch(
+      signIn({
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.authStatusSubscription.unsubscribe();
   }
 }

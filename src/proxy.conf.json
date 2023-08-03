@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://joldibaev.uz/api/auth/token/login/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
