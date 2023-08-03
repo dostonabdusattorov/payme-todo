@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'payme-todo';
+  private isDarkTheme: boolean = false;
+
+  @HostBinding('class')
+  get themeMode() {
+    return this.isDarkTheme ? 'theme-dark' : 'theme-light';
+  }
+
+  onToggleMode(mode: boolean): void {
+    console.log(mode);
+    this.isDarkTheme = mode;
+  }
 }
