@@ -1,5 +1,5 @@
 .todo {
-  margin: 10px 70px;
+  margin: 10px 100px;
 }
 
 .todo-header {
@@ -7,4 +7,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+mat-card-title {
+  font-size: 32px;
+  margin-bottom: 10px;
 }

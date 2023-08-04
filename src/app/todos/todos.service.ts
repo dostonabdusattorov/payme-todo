@@ -1,6 +1,6 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { Todo, TodoRequest, Todos, User } from '../../models';
 import { Store } from '@ngrx/store';
 import { AppState } from '../state/app.state';
@@ -35,6 +35,20 @@ export class TodosService implements OnDestroy {
     return this.http.post<Todo>('/api/todo/', newTodo, {
       headers: this.getHeaders(),
     });
+  }
+
+  deleteTodo(id: string): Observable<any> {
+    return this.http.delete<any>(`/api/todo/${id}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  updateTodo(id: string, updatedTodo: TodoRequest): Observable<Todo> {
+    return this.http
+      .put<Todo>(`/api/todo/${id}`, updatedTodo, {
+        headers: this.getHeaders(),
+      })
+      .pipe(tap((res) => console.log(res)));
   }
 
   ngOnDestroy(): void {

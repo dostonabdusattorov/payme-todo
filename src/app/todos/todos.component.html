@@ -18,6 +18,9 @@
       You need to enter todo first
     </mat-error>
   </mat-form-field>
+  <span *ngIf="createTodo.status === httpStatus.ERROR">
+    {{ createTodo.error?.statusText }}
+  </span>
 
   <div class="button-spinner">
     <mat-spinner
@@ -45,6 +48,21 @@
   </mat-form-field>
 </div>
 
-<ul class="todo-list">
-  <app-todo *ngFor="let todo of filteredTodos" [todo]="todo"></app-todo>
+<ul class="todo-list" *ngIf="status === httpStatus.SUCCESS">
+  <app-todo
+    *ngFor="let todo of filteredTodos"
+    [todo]="todo"
+    [user]="user"
+  ></app-todo>
 </ul>
+
+<div
+  *ngIf="todos && filteredTodos.length === 0 && status !== httpStatus.LOADING"
+  class="spinner"
+>
+  <span>0 todos found</span>
+</div>
+
+<div class="spinner" *ngIf="status === httpStatus.LOADING">
+  <mat-spinner></mat-spinner>
+</div>

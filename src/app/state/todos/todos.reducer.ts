@@ -5,9 +5,15 @@ import {
   createTodo,
   createTodoFailure,
   createTodoSuccess,
+  deleteTodo,
+  deleteTodoFailure,
+  deleteTodoSuccess,
   getTodos,
   getTodosFailure,
   getTodosSuccess,
+  updateTodo,
+  updateTodoFailure,
+  updateTodoSuccess,
 } from './todos.actions';
 
 export const initialState: TodosState = {
@@ -41,6 +47,32 @@ export const todosReducer = createReducer(
   })),
   on(createTodoFailure, (state, { error }) => ({
     ...state,
-    createTodo: { ...state.createTodo, error, status: HttpStatus.ERROR },
+    createTodo: { error, status: HttpStatus.ERROR },
+  })),
+  on(deleteTodo, (state) => ({
+    ...state,
+  })),
+  on(deleteTodoSuccess, (state, { id }) => ({
+    ...state,
+    todos: state.todos.filter((todo) => todo.id !== id),
+  })),
+  on(deleteTodoFailure, (state, { error }) => ({
+    ...state,
+  })),
+  on(updateTodo, (state) => ({
+    ...state,
+  })),
+  on(updateTodoSuccess, (state, { id, updatedTodo }) => ({
+    ...state,
+    todos: state.todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, ...updatedTodo };
+      }
+
+      return todo;
+    }),
+  })),
+  on(updateTodoFailure, (state, { error }) => ({
+    ...state,
   }))
 );
