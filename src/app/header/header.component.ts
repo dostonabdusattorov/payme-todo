@@ -20,4 +20,11 @@ export class HeaderComponent {
   onToggleMode({ checked }: MatSlideToggleChange) {
     this.toggleMode.emit(checked);
   }
+
+  get isThemeDark(): boolean {
+    return (
+      !!localStorage.getItem('theme') &&
+      localStorage.getItem('theme') === 'dark'
+    );
+  }
 }

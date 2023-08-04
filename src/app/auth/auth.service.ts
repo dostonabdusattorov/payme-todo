@@ -18,7 +18,8 @@ export class AuthService {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
       })
       .pipe(
-        tap(() => {
+        tap((user: User) => {
+          localStorage.setItem('user', JSON.stringify(user));
           this.router.navigate(['']);
         })
       );

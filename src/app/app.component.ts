@@ -22,15 +22,21 @@ export class AppComponent implements OnInit {
     this.renderer.setAttribute(
       this.dom.body,
       'class',
-      'theme-light mat-app-background'
+      localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark'
+        ? 'theme-dark mat-app-background'
+        : 'theme-light mat-app-background'
     );
   }
 
   onToggleMode(mode: boolean): void {
+    localStorage.setItem('theme', mode ? 'dark' : 'light');
+
     this.renderer.setAttribute(
       this.dom.body,
       'class',
-      mode ? 'theme-dark mat-app-background' : 'theme-light mat-app-background'
+      localStorage.getItem('theme') === 'light'
+        ? 'theme-light mat-app-background'
+        : 'theme-dark mat-app-background'
     );
   }
 }
