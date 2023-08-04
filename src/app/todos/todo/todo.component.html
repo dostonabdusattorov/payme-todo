@@ -1,1 +1,16 @@
-<p>todo works!</p>
+<li class="todo">
+  <mat-card>
+    <mat-card-header>
+      <div class="todo-header">
+        <mat-card-title>{{ todo.title }}</mat-card-title>
+        <mat-checkbox class="example-margin" [checked]="todo.completed">{{
+          todo.completed ? "Completed" : "Complete"
+        }}</mat-checkbox>
+      </div>
+    </mat-card-header>
+    <mat-card-actions align="end">
+      <button mat-button>Edit</button>
+      <button mat-button color="warn">Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</li>

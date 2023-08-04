@@ -32,15 +32,15 @@ export const todosReducer = createReducer(
   })),
   on(createTodo, (state) => ({
     ...state,
-    createTodoStatus: { ...state.createTodo, status: HttpStatus.LOADING },
+    createTodo: { ...state.createTodo, status: HttpStatus.LOADING },
   })),
   on(createTodoSuccess, (state, { newTodo }) => ({
     ...state,
     todos: [newTodo, ...state.todos],
-    createTodoStatus: { ...state.createTodo, status: HttpStatus.SUCCESS },
+    createTodo: { ...state.createTodo, status: HttpStatus.SUCCESS },
   })),
   on(createTodoFailure, (state, { error }) => ({
     ...state,
-    createTodoStatus: { ...state.createTodo, error, status: HttpStatus.ERROR },
+    createTodo: { ...state.createTodo, error, status: HttpStatus.ERROR },
   }))
 );

@@ -30,6 +30,8 @@ export class TodosComponent implements OnInit, OnDestroy {
   todos$ = this.store.select(todosSelector);
   user$ = this.store.select(userSelector);
 
+  selected: string = 'all';
+
   constructor(private store: Store<AppState>, private fb: FormBuilder) {}
 
   addTodoForm: FormGroup = this.fb.group({
@@ -41,9 +43,18 @@ export class TodosComponent implements OnInit, OnDestroy {
     this.todosStateSubscription = this.todos$.subscribe((todosState) => {
       this.todos = todosState.todos;
       this.createTodo = todosState.createTodo;
+      this.status = todosState.status;
     });
     this.userSubscription = this.user$.subscribe((user) => {
       this.user = user;
+    });
+  }
+
+  get filteredTodos(): Todo[] {
+    return this.todos.filter((todo) => {
+      if (this.selected === 'all') return true;
+      if (this.selected === 'completed') return todo.completed;
+      return !todo.completed;
     });
   }
 

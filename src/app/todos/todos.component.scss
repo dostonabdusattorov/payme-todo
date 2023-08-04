@@ -17,10 +17,22 @@
   width: 20%;
   display: flex;
   align-items: center;
+  mat-spinner,
   button {
     width: 100%;
     height: 52px;
     bottom: 10px;
     font-size: 20px;
   }
+}
+
+.filter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.todo-list {
+  list-style: none;
+  margin-bottom: 50px;
 }

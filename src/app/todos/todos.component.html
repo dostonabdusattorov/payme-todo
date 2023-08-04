@@ -22,7 +22,7 @@
   <div class="button-spinner">
     <mat-spinner
       *ngIf="createTodo.status === httpStatus.LOADING"
-      diameter="25"
+      diameter="50"
     ></mat-spinner>
     <button
       *ngIf="createTodo.status !== httpStatus.LOADING"
@@ -33,3 +33,18 @@
     </button>
   </div>
 </form>
+
+<div class="filter">
+  <mat-form-field>
+    <mat-label>Select an option</mat-label>
+    <mat-select [(value)]="selected" [disabled]="status === httpStatus.LOADING">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="completed">Completed</mat-option>
+      <mat-option value="uncompleted">Uncompleted</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<ul class="todo-list">
+  <app-todo *ngFor="let todo of filteredTodos" [todo]="todo"></app-todo>
+</ul>
