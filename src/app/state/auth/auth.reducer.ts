@@ -5,7 +5,7 @@ import { signIn, signInFailure, signInSuccess, signOut } from './auth.actions';
 
 export const initialState: AuthState = {
   user: localStorage.getItem('user')
-    ? JSON.parse(`${localStorage.getItem('user')}`).user_id
+    ? JSON.parse(`${localStorage.getItem('user')}`)
     : null,
   error: null,
   status: HttpStatus.PENDING,
@@ -16,8 +16,7 @@ export const authReducer = createReducer(
   on(signIn, (state) => ({ ...state, status: HttpStatus.LOADING })),
   on(signInSuccess, (state, { user }) => ({
     ...state,
-    user: user.user_id,
-    error: null,
+    user: user,
     status: HttpStatus.SUCCESS,
   })),
   on(signInFailure, (state, { error }) => ({

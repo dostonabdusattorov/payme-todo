@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpStatus } from '../constants';
-import { User } from './user.interface';
+import { Todo } from './todo.interface';
 
-export interface AuthState {
-  user: User | null;
+export interface TodosState {
+  todos: Todo[];
   error: HttpErrorResponse | null;
   status: HttpStatus;
 }

@@ -14,6 +14,8 @@ import { authReducer } from './state/auth/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './state/auth/auth.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { todosReducer } from './state/todos/todos.reducer';
+import { TodosEffects } from './state/todos/todos.effects';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -21,13 +23,13 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({ auth: authReducer }),
+    StoreModule.forRoot({ auth: authReducer, todos: todosReducer }),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSlideToggleModule,
     MatIconModule,
     MatButtonModule,
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, TodosEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
