@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { HttpStatus } from '../../../constants';
-import { AuthState } from '../../../models/auth-state.interface';
+import { AuthState } from '../../../models';
 import { signIn, signInFailure, signInSuccess } from './auth.actions';
 
 export const initialState: AuthState = {
@@ -14,7 +14,7 @@ export const authReducer = createReducer(
   on(signIn, (state) => ({ ...state, status: HttpStatus.LOADING })),
   on(signInSuccess, (state, { user }) => ({
     ...state,
-    user,
+    user: user.user_id,
     error: null,
     status: HttpStatus.SUCCESS,
   })),

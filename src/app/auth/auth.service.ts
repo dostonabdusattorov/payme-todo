@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl } from '../../constants';
 import { Observable, tap } from 'rxjs';
+import { User } from '../../models';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  signIn(email: string, password: string): Observable<any> {
+  signIn(email: string, password: string): Observable<User> {
     return this.http
-      .post<any>(`${baseUrl}/auth/token/login/`, {
+      .post<User>(`/api/auth/token/login/`, {
         email,
         password,
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
       })
       .pipe(
-        tap((res) => {
-          console.log(res);
+        tap(() => {
+          this.router.navigate(['']);
         })
       );
   }
