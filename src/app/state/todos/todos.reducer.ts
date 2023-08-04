@@ -1,12 +1,20 @@
 import { createReducer, on } from '@ngrx/store';
 import { HttpStatus } from '../../../constants';
-import { TodosState } from '../../../models/todos-state.interface';
-import { getTodos, getTodosFailure, getTodosSuccess } from './todos.actions';
+import { TodosState } from '../../../models';
+import {
+  createTodo,
+  createTodoFailure,
+  createTodoSuccess,
+  getTodos,
+  getTodosFailure,
+  getTodosSuccess,
+} from './todos.actions';
 
 export const initialState: TodosState = {
   todos: [],
   error: null,
   status: HttpStatus.PENDING,
+  createTodo: { error: null, status: HttpStatus.PENDING },
 };
 
 export const todosReducer = createReducer(
@@ -21,5 +29,18 @@ export const todosReducer = createReducer(
     ...state,
     error,
     status: HttpStatus.ERROR,
+  })),
+  on(createTodo, (state) => ({
+    ...state,
+    createTodoStatus: { ...state.createTodo, status: HttpStatus.LOADING },
+  })),
+  on(createTodoSuccess, (state, { newTodo }) => ({
+    ...state,
+    todos: [newTodo, ...state.todos],
+    createTodoStatus: { ...state.createTodo, status: HttpStatus.SUCCESS },
+  })),
+  on(createTodoFailure, (state, { error }) => ({
+    ...state,
+    createTodoStatus: { ...state.createTodo, error, status: HttpStatus.ERROR },
   }))
 );

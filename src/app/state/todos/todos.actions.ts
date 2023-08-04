@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Todo } from '../../../models';
+import { Todo, TodoRequest } from '../../../models';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export const getTodos = createAction('[Todos] Load todos');
@@ -9,5 +9,18 @@ export const getTodosSuccess = createAction(
 );
 export const getTodosFailure = createAction(
   '[Todos] Load todos Failure',
+  props<{ error: HttpErrorResponse }>()
+);
+
+export const createTodo = createAction(
+  '[Todos] Create Todo',
+  props<{ newTodoData: TodoRequest }>()
+);
+export const createTodoSuccess = createAction(
+  '[Todos] Create Todo Success',
+  props<{ newTodo: Todo }>()
+);
+export const createTodoFailure = createAction(
+  '[Todos] Create Todo Failure',
   props<{ error: HttpErrorResponse }>()
 );

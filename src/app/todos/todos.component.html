@@ -1,1 +1,35 @@
-<app-todo></app-todo>
+<form
+  (ngSubmit)="onAddTodo()"
+  class="form"
+  name="addTodoForm"
+  [formGroup]="addTodoForm"
+>
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Enter new todo</mat-label>
+    <input
+      formControlName="newTodoTitle"
+      matInput
+      type="text"
+      required
+      autocomplete=""
+      class="newTodoInput"
+    />
+    <mat-error *ngIf="!addTodoForm.controls['newTodoTitle'].valid">
+      You need to enter todo first
+    </mat-error>
+  </mat-form-field>
+
+  <div class="button-spinner">
+    <mat-spinner
+      *ngIf="createTodo.status === httpStatus.LOADING"
+      diameter="25"
+    ></mat-spinner>
+    <button
+      *ngIf="createTodo.status !== httpStatus.LOADING"
+      mat-flat-button
+      color="primary"
+    >
+      Add
+    </button>
+  </div>
+</form>

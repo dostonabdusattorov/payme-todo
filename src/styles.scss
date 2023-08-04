@@ -45,6 +45,9 @@ $payme-todo-theme-dark: mat.define-dark-theme(
 
 /* You can add global styles to this file, and also import other style files */
 
+* {
+  box-sizing: border-box;
+}
 html,
 body {
   height: 100%;

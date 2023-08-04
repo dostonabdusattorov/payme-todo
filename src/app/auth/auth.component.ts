@@ -7,7 +7,7 @@ import {
   authStatusSelector,
 } from '../state/auth/auth.selectors';
 import { AppState } from '../state/app.state';
-import { HttpStatus } from 'src/constants';
+import { HttpStatus } from '../../constants';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
