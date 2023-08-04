@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../state/app.state';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todos',
@@ -9,9 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./todos.component.scss'],
 })
 export class TodosComponent implements OnInit {
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {
-    localStorage.getItem('user') ?? this.router.navigate(['sign-in']);
-  }
+  ngOnInit(): void {}
 }

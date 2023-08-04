@@ -5,7 +5,12 @@
       <mat-icon *ngIf="user$ | async">account_circle</mat-icon>
     </div>
     <div class="sign-out-switch">
-      <button *ngIf="user$ | async" mat-button class="sign-out">
+      <button
+        *ngIf="user$ | async"
+        mat-button
+        class="sign-out"
+        (click)="onSignOut()"
+      >
         Sign Out
       </button>
       <mat-slide-toggle

@@ -1,10 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { HttpStatus } from '../../../constants';
 import { AuthState } from '../../../models';
-import { signIn, signInFailure, signInSuccess } from './auth.actions';
+import { signIn, signInFailure, signInSuccess, signOut } from './auth.actions';
 
 export const initialState: AuthState = {
-  user: null,
+  user: localStorage.getItem('user')
+    ? JSON.parse(`${localStorage.getItem('user')}`).user_id
+    : null,
   error: null,
   status: HttpStatus.PENDING,
 };
@@ -22,5 +24,6 @@ export const authReducer = createReducer(
     ...state,
     error,
     status: HttpStatus.ERROR,
-  }))
+  })),
+  on(signOut, () => ({ user: null, error: null, status: HttpStatus.PENDING }))
 );

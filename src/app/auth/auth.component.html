@@ -45,6 +45,9 @@
             Password is required
           </mat-error>
         </mat-form-field>
+        <mat-error *ngIf="authStatus === httpStatus.ERROR">
+          {{ authError?.error?.message }}
+        </mat-error>
       </div>
 
       <div class="button-spinner">

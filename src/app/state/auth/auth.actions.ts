@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '../../../models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const signIn = createAction(
   '[Auth] Sign in',
@@ -11,5 +12,6 @@ export const signInSuccess = createAction(
 );
 export const signInFailure = createAction(
   '[Auth] Sign in Failure',
-  props<{ error: string }>()
+  props<{ error: HttpErrorResponse }>()
 );
+export const signOut = createAction('[Auth] Sign Out');
