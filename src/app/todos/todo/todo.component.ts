@@ -18,6 +18,8 @@ export class TodoComponent {
   @Input() editTodo!: EditDeleteResponse | null;
 
   httpStatus = HttpStatus;
+  editTodoTitle!: string;
+  isEditTitleStarted = false;
 
   constructor(private store: Store<AppState>) {}
 
@@ -40,6 +42,28 @@ export class TodoComponent {
     }
 
     event.source.checked = this.todo.completed;
+  }
+
+  onStartEditTitle(): void {
+    this.editTodoTitle = this.todo.title;
+    this.isEditTitleStarted = true;
+  }
+
+  onEditTitleTodo(): void {
+    if (this.user) {
+      this.store.dispatch(
+        updateTodo({
+          id: this.todo.id,
+          updatedTodo: {
+            title: this.editTodoTitle,
+            completed: !this.todo.completed,
+            user: this.user.user_id,
+          },
+        })
+      );
+    }
+
+    this.isEditTitleStarted = false;
   }
 
   get completed(): boolean {
