@@ -65,7 +65,7 @@ export class TodosEffects {
           map((updatedTodo) =>
             updateTodoSuccess({ id: action.id, updatedTodo })
           ),
-          catchError((error) => of(updateTodoFailure({ error })))
+          catchError((error) => of(updateTodoFailure({ id: action.id, error })))
         )
       )
     )

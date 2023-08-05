@@ -22,6 +22,7 @@ export const initialState: TodosState = {
   status: HttpStatus.PENDING,
   createTodo: { error: null, status: HttpStatus.PENDING },
   deleteTodo: null,
+  editTodo: null,
 };
 
 export const todosReducer = createReducer(
@@ -78,8 +79,13 @@ export const todosReducer = createReducer(
       status: HttpStatus.ERROR,
     },
   })),
-  on(updateTodo, (state) => ({
+  on(updateTodo, (state, { id }) => ({
     ...state,
+    editTodo: {
+      id,
+      error: null,
+      status: HttpStatus.LOADING,
+    },
   })),
   on(updateTodoSuccess, (state, { id, updatedTodo }) => ({
     ...state,
@@ -90,8 +96,18 @@ export const todosReducer = createReducer(
 
       return todo;
     }),
+    editTodo: {
+      id,
+      error: null,
+      status: HttpStatus.SUCCESS,
+    },
   })),
-  on(updateTodoFailure, (state, { error }) => ({
+  on(updateTodoFailure, (state, { id, error }) => ({
     ...state,
+    editTodo: {
+      id,
+      error,
+      status: HttpStatus.ERROR,
+    },
   }))
 );

@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EditDeleteResponse, Todo, User } from '../../../models';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app/state/app.state';
 import { deleteTodo, updateTodo } from '../../../app/state/todos/todos.actions';
 import { HttpStatus } from '../../../constants';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-todo',
@@ -14,6 +15,7 @@ export class TodoComponent {
   @Input() todo!: Todo;
   @Input() user!: User | null;
   @Input() deleteTodo!: EditDeleteResponse | null;
+  @Input() editTodo!: EditDeleteResponse | null;
 
   httpStatus = HttpStatus;
 
@@ -23,7 +25,7 @@ export class TodoComponent {
     this.store.dispatch(deleteTodo({ id: this.todo.id }));
   }
 
-  onUpdateTodo(): void {
+  onUpdateTodo(event: MatCheckboxChange): void {
     if (this.user) {
       this.store.dispatch(
         updateTodo({
@@ -36,6 +38,12 @@ export class TodoComponent {
         })
       );
     }
+
+    event.source.checked = this.todo.completed;
+  }
+
+  get completed(): boolean {
+    return this.todo.completed;
   }
 
   get createdDate(): string {

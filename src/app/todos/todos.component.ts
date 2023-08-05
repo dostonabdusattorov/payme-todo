@@ -23,6 +23,7 @@ export class TodosComponent implements OnInit, OnDestroy {
   status!: HttpStatus;
   createTodo!: ResponseHttp;
   deleteTodo!: EditDeleteResponse | null;
+  editTodo!: EditDeleteResponse | null;
   user!: User | null;
 
   todosStateSubscription!: Subscription;
@@ -42,9 +43,10 @@ export class TodosComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(getTodos());
     this.todosStateSubscription = this.todos$.subscribe((todosState) => {
-      this.todos = todosState.todos;
+      this.todos = [...todosState.todos];
       this.createTodo = todosState.createTodo;
       this.deleteTodo = todosState.deleteTodo;
+      this.editTodo = todosState.editTodo;
       this.status = todosState.status;
     });
     this.userSubscription = this.user$.subscribe((user) => {

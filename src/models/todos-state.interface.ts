@@ -10,4 +10,5 @@ export interface TodosState {
   status: HttpStatus;
   createTodo: ResponseHttp;
   deleteTodo: EditDeleteResponse | null;
+  editTodo: EditDeleteResponse | null;
 }

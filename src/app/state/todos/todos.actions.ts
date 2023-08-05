@@ -48,5 +48,5 @@ export const updateTodoSuccess = createAction(
 );
 export const updateTodoFailure = createAction(
   '[Todos] update Todo Failure',
-  props<{ error: HttpErrorResponse }>()
+  props<{ id: string; error: HttpErrorResponse }>()
 );
