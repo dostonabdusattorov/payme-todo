@@ -17,7 +17,26 @@
     </mat-card-header>
     <mat-card-actions align="end">
       <button mat-button>Edit</button>
-      <button mat-button color="warn" (click)="onDeleteTodo()">Delete</button>
+      <button
+        mat-button
+        [disabled]="
+          deleteTodo &&
+          deleteTodo.id === todo.id &&
+          deleteTodo.status === httpStatus.LOADING
+        "
+        color="warn"
+        (click)="onDeleteTodo()"
+      >
+        Delete
+      </button>
+      <mat-spinner
+        *ngIf="
+          deleteTodo &&
+          deleteTodo.id === todo.id &&
+          deleteTodo.status === httpStatus.LOADING
+        "
+        diameter="20"
+      ></mat-spinner>
     </mat-card-actions>
   </mat-card>
 </li>

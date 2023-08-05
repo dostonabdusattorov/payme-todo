@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, from, map, of, switchMap } from 'rxjs';
-import { TodosService } from 'src/app/todos/todos.service';
+import { TodosService } from '../../../app/todos/todos.service';
 import {
   createTodo,
   createTodoFailure,
@@ -51,7 +51,7 @@ export class TodosEffects {
       switchMap((action) =>
         from(this.todosSer.deleteTodo(action.id)).pipe(
           map(() => deleteTodoSuccess({ id: action.id })),
-          catchError((error) => of(deleteTodoFailure({ error })))
+          catchError((error) => of(deleteTodoFailure({ id: action.id, error })))
         )
       )
     )

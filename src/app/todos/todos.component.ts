@@ -4,7 +4,7 @@ import { AppState } from '../state/app.state';
 import { todosSelector } from '../state/todos/todos.selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { userSelector } from '../state/auth/auth.selectors';
-import { ResponseHttp, Todo, User } from '../../models';
+import { EditDeleteResponse, ResponseHttp, Todo, User } from '../../models';
 import { Subscription } from 'rxjs';
 import { HttpStatus } from '../../constants';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -22,6 +22,7 @@ export class TodosComponent implements OnInit, OnDestroy {
   error!: HttpErrorResponse;
   status!: HttpStatus;
   createTodo!: ResponseHttp;
+  deleteTodo!: EditDeleteResponse | null;
   user!: User | null;
 
   todosStateSubscription!: Subscription;
@@ -43,6 +44,7 @@ export class TodosComponent implements OnInit, OnDestroy {
     this.todosStateSubscription = this.todos$.subscribe((todosState) => {
       this.todos = todosState.todos;
       this.createTodo = todosState.createTodo;
+      this.deleteTodo = todosState.deleteTodo;
       this.status = todosState.status;
     });
     this.userSubscription = this.user$.subscribe((user) => {

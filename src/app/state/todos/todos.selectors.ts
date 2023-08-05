@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from '../app.state';
-import { TodosState } from '../../../models/todos-state.interface';
+import { TodosState } from '../../../models';
 
 export const todosSelector = createSelector(
   (state: AppState) => state.todos,

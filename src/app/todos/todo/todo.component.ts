@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Todo, User } from '../../../models';
+import { EditDeleteResponse, Todo, User } from '../../../models';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app/state/app.state';
 import { deleteTodo, updateTodo } from '../../../app/state/todos/todos.actions';
+import { HttpStatus } from '../../../constants';
 
 @Component({
   selector: 'app-todo',
@@ -12,6 +13,9 @@ import { deleteTodo, updateTodo } from '../../../app/state/todos/todos.actions';
 export class TodoComponent {
   @Input() todo!: Todo;
   @Input() user!: User | null;
+  @Input() deleteTodo!: EditDeleteResponse | null;
+
+  httpStatus = HttpStatus;
 
   constructor(private store: Store<AppState>) {}
 

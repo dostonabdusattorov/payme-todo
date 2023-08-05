@@ -6,3 +6,4 @@ export * from './todos-state.interface';
 export * from './user.interface';
 export * from './todo-request.interface';
 export * from './todos.interface';
+export * from './edit-delete-response.interface';

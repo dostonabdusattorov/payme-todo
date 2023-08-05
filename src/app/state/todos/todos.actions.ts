@@ -35,7 +35,7 @@ export const deleteTodoSuccess = createAction(
 );
 export const deleteTodoFailure = createAction(
   '[Todos] Delete Todo Failure',
-  props<{ error: HttpErrorResponse }>()
+  props<{ id: string; error: HttpErrorResponse }>()
 );
 
 export const updateTodo = createAction(
