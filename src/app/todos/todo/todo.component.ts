@@ -56,7 +56,7 @@ export class TodoComponent {
           id: this.todo.id,
           updatedTodo: {
             title: this.editTodoTitle,
-            completed: !this.todo.completed,
+            completed: this.todo.completed,
             user: this.user.user_id,
           },
         })

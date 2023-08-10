@@ -44,11 +44,9 @@ export class TodosService implements OnDestroy {
   }
 
   updateTodo(id: string, updatedTodo: TodoRequest): Observable<Todo> {
-    return this.http
-      .put<Todo>(`/api/todo/${id}`, updatedTodo, {
-        headers: this.getHeaders(),
-      })
-      .pipe(tap((res) => console.log(res)));
+    return this.http.put<Todo>(`/api/todo/${id}`, updatedTodo, {
+      headers: this.getHeaders(),
+    });
   }
 
   ngOnDestroy(): void {
